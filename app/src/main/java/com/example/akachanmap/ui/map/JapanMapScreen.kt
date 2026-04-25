@@ -9,8 +9,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.runtime.*
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
@@ -62,6 +65,7 @@ fun JapanMapScreen(
     var showReport by remember { mutableStateOf(false) }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val uriHandler = LocalUriHandler.current
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -95,33 +99,51 @@ fun JapanMapScreen(
                     },
                     modifier = Modifier.padding(horizontal = 12.dp)
                 )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Default.Info, contentDescription = null) },
+                    label = { Text("利用規約") },
+                    selected = false,
+                    onClick = {
+                        scope.launch { drawerState.close() }
+                        uriHandler.openUri("https://chii2801.github.io/AkaChangMap/terms-of-service")
+                    },
+                    modifier = Modifier.padding(horizontal = 12.dp)
+                )
+                NavigationDrawerItem(
+                    icon = { Icon(Icons.Default.Lock, contentDescription = null) },
+                    label = { Text("プライバシーポリシー") },
+                    selected = false,
+                    onClick = {
+                        scope.launch { drawerState.close() }
+                        uriHandler.openUri("https://chii2801.github.io/AkaChangMap/privacy-policy")
+                    },
+                    modifier = Modifier.padding(horizontal = 12.dp)
+                )
             }
         }
     ) {
     Column(modifier = Modifier.fillMaxSize().background(Color(0xFFFFF8F8))) {
 
         // 上部バナー（タップでレポート表示）
-        Box(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFFFF6B6B))
-                .padding(vertical = 12.dp, horizontal = 16.dp),
-            contentAlignment = Alignment.Center
+                .padding(vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            // ハンバーガーアイコン（左上）
-            IconButton(
-                onClick = { scope.launch { drawerState.open() } },
-                modifier = Modifier.align(Alignment.CenterStart)
-            ) {
+            // ハンバーガーアイコン（左）
+            IconButton(onClick = { scope.launch { drawerState.open() } }) {
                 Icon(Icons.Default.Menu, contentDescription = "メニュー", tint = Color.White)
             }
             // バナーテキスト（タップでレポート）
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .weight(1f)
                     .clickable { showReport = true }
-                    .padding(horizontal = 40.dp)
+                    .padding(vertical = 8.dp)
             ) {
                 Text(
                     "🍼 今 ${stats.total} 人の赤ちゃんが泣いてるゾ！",
@@ -135,6 +157,8 @@ fun JapanMapScreen(
                     fontSize = 11.sp
                 )
             }
+            // 右側の余白（左右対称にするため）
+            Spacer(modifier = Modifier.width(48.dp))
         }
 
         // ユーザー情報バー

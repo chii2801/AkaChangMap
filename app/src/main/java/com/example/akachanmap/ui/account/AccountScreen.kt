@@ -16,7 +16,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -47,6 +52,8 @@ fun AccountScreen(
     var selectedPrefecture by remember(profile) { mutableStateOf(profile?.prefecture ?: "") }
     var showDatePicker by remember { mutableStateOf(false) }
     var showPrefPicker by remember { mutableStateOf(false) }
+    val isFirstTime = profile?.nickname.isNullOrBlank()
+    var agreedToTerms by remember { mutableStateOf(!isFirstTime) }
 
     if (saveSuccess) {
         LaunchedEffect(Unit) {
@@ -176,11 +183,19 @@ fun AccountScreen(
                 )
             )
 
+            // 初回のみ利用規約同意チェックボックス
+            if (isFirstTime) {
+                TermsAgreementRow(
+                    agreed = agreedToTerms,
+                    onToggle = { agreedToTerms = it }
+                )
+            }
+
             // 保存ボタン
             Button(
                 onClick = { viewModel.saveProfile(nickname, selectedGender, birthdate, selectedAvatar, selectedPrefecture) },
                 modifier = Modifier.fillMaxWidth().height(52.dp),
-                enabled = !isSaving,
+                enabled = !isSaving && (if (isFirstTime) agreedToTerms && nickname.isNotBlank() else true),
                 shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6B6B))
             ) {
@@ -205,6 +220,47 @@ fun AccountScreen(
             onConfirm = { selectedPrefecture = it; showPrefPicker = false },
             onDismiss = { showPrefPicker = false }
         )
+    }
+}
+
+@Composable
+fun TermsAgreementRow(agreed: Boolean, onToggle: (Boolean) -> Unit) {
+    val uriHandler = LocalUriHandler.current
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Checkbox(
+            checked = agreed,
+            onCheckedChange = onToggle,
+            colors = CheckboxDefaults.colors(checkedColor = Color(0xFFFF6B6B))
+        )
+        val text = buildAnnotatedString {
+            append("　")
+            withStyle(SpanStyle(color = Color(0xFFFF6B6B), textDecoration = TextDecoration.Underline)) {
+                append("利用規約")
+            }
+            append("・")
+            withStyle(SpanStyle(color = Color(0xFFFF6B6B), textDecoration = TextDecoration.Underline)) {
+                append("プライバシーポリシー")
+            }
+            append("に同意する")
+        }
+        Text(
+            text = text,
+            fontSize = 13.sp,
+            modifier = Modifier.clickable { onToggle(!agreed) }
+        )
+    }
+    Row(modifier = Modifier.padding(start = 48.dp)) {
+        TextButton(
+            onClick = { uriHandler.openUri("https://chii2801.github.io/AkaChangMap/terms-of-service") },
+            contentPadding = PaddingValues(0.dp)
+        ) { Text("利用規約を読む →", fontSize = 11.sp, color = Color.Gray) }
+        TextButton(
+            onClick = { uriHandler.openUri("https://chii2801.github.io/AkaChangMap/privacy-policy") },
+            contentPadding = PaddingValues(0.dp)
+        ) { Text("プライバシーポリシーを読む →", fontSize = 11.sp, color = Color.Gray) }
     }
 }
 
