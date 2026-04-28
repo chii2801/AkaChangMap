@@ -1,4 +1,4 @@
-package com.example.akachanmap.data.model
+package com.chii2801.akachanmap.data.model
 
 import com.google.firebase.Timestamp
 
@@ -12,7 +12,8 @@ data class CryPost(
     val timestamp: Timestamp = Timestamp.now(),
     val expiresAt: Timestamp = Timestamp.now(),
     val nickname: String = "",
-    val babyBirthdate: String = ""
+    val babyBirthdate: String = "",
+    val userId: String = ""
 )
 
 enum class ReactionType(val emoji: String, val label: String) {

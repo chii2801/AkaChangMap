@@ -1,4 +1,4 @@
-package com.example.akachanmap.ui.account
+package com.chii2801.akachanmap.ui.account
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,9 +25,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.akachanmap.data.model.BabyGender
-import com.example.akachanmap.data.model.Prefecture
-import com.example.akachanmap.viewmodel.AccountViewModel
+import com.chii2801.akachanmap.data.model.BabyGender
+import com.chii2801.akachanmap.data.model.Prefecture
+import com.chii2801.akachanmap.viewmodel.AccountViewModel
 
 private val avatarOptions = listOf(
     "👩", "👩‍🦱", "👩‍🦰", "👩‍🦳", "👩‍🦲",

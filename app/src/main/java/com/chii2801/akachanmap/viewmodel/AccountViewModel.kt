@@ -1,10 +1,10 @@
-package com.example.akachanmap.viewmodel
+package com.chii2801.akachanmap.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.akachanmap.data.model.BabyGender
-import com.example.akachanmap.data.model.UserProfile
-import com.example.akachanmap.data.repository.UserRepository
+import com.chii2801.akachanmap.data.model.BabyGender
+import com.chii2801.akachanmap.data.model.UserProfile
+import com.chii2801.akachanmap.data.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

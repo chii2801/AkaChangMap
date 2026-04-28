@@ -1,7 +1,7 @@
-package com.example.akachanmap.data.repository
+package com.chii2801.akachanmap.data.repository
 
-import com.example.akachanmap.data.model.BabyGender
-import com.example.akachanmap.data.model.UserProfile
+import com.chii2801.akachanmap.data.model.BabyGender
+import com.chii2801.akachanmap.data.model.UserProfile
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await

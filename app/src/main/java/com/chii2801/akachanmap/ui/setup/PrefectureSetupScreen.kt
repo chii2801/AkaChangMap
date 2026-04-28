@@ -1,4 +1,4 @@
-package com.example.akachanmap.ui.setup
+package com.chii2801.akachanmap.ui.setup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.akachanmap.data.model.Prefecture
-import com.example.akachanmap.data.model.Region
+import com.chii2801.akachanmap.data.model.Prefecture
+import com.chii2801.akachanmap.data.model.Region
 
 @Composable
 fun PrefectureSetupScreen(onDone: (Prefecture) -> Unit) {

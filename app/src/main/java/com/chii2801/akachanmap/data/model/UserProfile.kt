@@ -1,4 +1,4 @@
-package com.example.akachanmap.data.model
+package com.chii2801.akachanmap.data.model
 
 data class UserProfile(
     val uid: String = "",

@@ -1,4 +1,4 @@
-package com.example.akachanmap.ui.post
+package com.chii2801.akachanmap.ui.post
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.akachanmap.ui.components.CryLevelSelector
+import com.chii2801.akachanmap.ui.components.CryLevelSelector
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

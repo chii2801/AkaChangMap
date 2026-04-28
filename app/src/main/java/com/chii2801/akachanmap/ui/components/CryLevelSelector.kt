@@ -1,4 +1,4 @@
-package com.example.akachanmap.ui.components
+package com.chii2801.akachanmap.ui.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.akachanmap.data.model.CryLevel
+import com.chii2801.akachanmap.data.model.CryLevel
 
 @Composable
 fun CryLevelSelector(selected: Int, onSelect: (Int) -> Unit) {
